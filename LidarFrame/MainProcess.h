@@ -8,6 +8,7 @@
 #include "LaserBase.h"
 
 class Cloud;
+//class ServiceFind;
 
 class MainProcess :public QObject
 {
@@ -28,6 +29,7 @@ private:
     LaserBase* mLaser;
 
     Cloud* mCloud;
+    //ServiceFind* mServiceFind;
 };
 
 #endif

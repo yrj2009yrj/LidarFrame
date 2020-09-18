@@ -44,6 +44,12 @@
     <ClCompile Include="Cloud.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DeviceState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ServiceFind.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="PartBase.h">
@@ -67,10 +73,21 @@
     <QtMoc Include="Cloud.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="DeviceState.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ServiceFind.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="SendData.proto">
       <Filter>Resource Files</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ZkgdLog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,6 +5,8 @@
 
 class QWebSocket;
 
+class ServiceFind;
+
 class Cloud :public QObject
 {
     Q_OBJECT
@@ -13,7 +15,7 @@ public:
     Cloud(QObject* parent = nullptr);
     virtual ~Cloud();
 
-    void connectCloud(QString url);
+    void connectCloud();
     void disconnectCloud();
 
 protected:
@@ -22,6 +24,10 @@ protected:
 private:
     void reconnection();
 
+    void connected();
+
+    void serviceAddressChanged();
+
 private:
     QWebSocket* mWebSocketClient;
 
@@ -29,6 +35,10 @@ private:
     bool mIsConnected;
 
     int mTimerId;
+
+    int mReconnectionTimer;
+
+    ServiceFind*  mServiceFind;
 };
 
 #endif

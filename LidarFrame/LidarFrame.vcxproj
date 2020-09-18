@@ -52,7 +52,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)protobuf-3.12.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)protobuf-3.12.3\include;$(ProjectDir)easylogger\inc;$(ProjectDir)easylogger\plugins\file;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(ProjectDir)protobuf-3.12.3\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -88,7 +88,7 @@
   </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|Win32'" Label="QtSettings">
     <QtInstall>msvc2019</QtInstall>
-    <QtModules>core;websockets</QtModules>
+    <QtModules>core;network;websockets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|Win32'" Label="QtSettings">
@@ -130,10 +130,12 @@
     <ClCompile Include="CardBase.cpp" />
     <ClCompile Include="AngleBase.cpp" />
     <ClCompile Include="Cloud.cpp" />
+    <ClCompile Include="DeviceState.cpp" />
     <ClCompile Include="LaserBase.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainProcess.cpp" />
     <ClCompile Include="PartBase.cpp" />
+    <ClCompile Include="ServiceFind.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="PartBase.h" />
@@ -168,6 +170,13 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)%(Filename).pb.cc</Outputs>
       <OutputItemType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ClCompile</OutputItemType>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="DeviceState.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="ServiceFind.h" />
+    <ClInclude Include="ZkgdLog.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
