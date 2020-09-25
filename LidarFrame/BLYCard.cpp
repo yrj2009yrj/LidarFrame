@@ -8,14 +8,14 @@ BLYCard::~BLYCard()
 {
 }
 
-void BLYCard::openPart()
+void BLYCard::open()
 {
 }
 
-void BLYCard::initPart()
+void BLYCard::init()
 {
 }
 
-void BLYCard::closePart()
+void BLYCard::close()
 {
 }

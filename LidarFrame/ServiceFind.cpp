@@ -12,7 +12,8 @@ ServiceFind::ServiceFind(QObject* parent)
     connect(mUdpSocket, &QUdpSocket::readyRead, this, &ServiceFind::udpRecv);
 
     //TODO: 从其他地方获取设备的实际地址
-    mRealCloud = "ws://192.168.3.21:8899";
+    //mRealCloud = "ws://10.5.12.21:9999/ws/device-management/device-endpoint/9";
+    mRealCloud = "ws://10.5.13.93:9999/ws/device-management/device-endpoint/9";
     mServiceForm = 0;
 }
 

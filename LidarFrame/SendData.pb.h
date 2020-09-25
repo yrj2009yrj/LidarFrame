@@ -5124,13 +5124,13 @@ class SendData PROTOBUF_FINAL :
   std::string* _internal_mutable_success();
   public:
 
-  // string message = 5;
+  // bytes message = 5;
   void clear_message();
   const std::string& message() const;
   void set_message(const std::string& value);
   void set_message(std::string&& value);
   void set_message(const char* value);
-  void set_message(const char* value, size_t size);
+  void set_message(const void* value, size_t size);
   std::string* mutable_message();
   std::string* release_message();
   void set_allocated_message(std::string* message);
@@ -12058,7 +12058,7 @@ inline void SendData::unsafe_arena_set_allocated_success(
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:com.caspe.devicemanagement.util.SendData.success)
 }
 
-// string message = 5;
+// bytes message = 5;
 inline void SendData::clear_message() {
   message_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
@@ -12094,7 +12094,7 @@ inline void SendData::set_message(const char* value) {
               GetArena());
   // @@protoc_insertion_point(field_set_char:com.caspe.devicemanagement.util.SendData.message)
 }
-inline void SendData::set_message(const char* value,
+inline void SendData::set_message(const void* value,
     size_t size) {
   
   message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(

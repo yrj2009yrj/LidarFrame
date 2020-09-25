@@ -12,9 +12,9 @@ public:
     virtual ~BLYCard();
 
 protected:
-    virtual void openPart();
-    virtual void initPart();
-    virtual void closePart();
+    virtual void open();
+    virtual void init();
+    virtual void close();
 };
 
 #endif

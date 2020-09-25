@@ -2,6 +2,10 @@
 #define __CLOUD_H__
 
 #include <QObject>
+#include <QSet>
+
+#include "SendData.pb.h"
+using namespace com::caspe::devicemanagement::util;
 
 class QWebSocket;
 
@@ -26,19 +30,28 @@ private:
 
     void connected();
 
+    void handleBinaryMessage(const QByteArray& message);
+
+    void responseConnectCheck(const SendData&);
+
+    void reportOnline();
+
     void serviceAddressChanged();
+
+    int serializeSend(const SendData& data);
 
 private:
     QWebSocket* mWebSocketClient;
 
     QString mUrl;
-    bool mIsConnected;
 
-    int mTimerId;
+    bool mIsConnected;
 
     int mReconnectionTimer;
 
     ServiceFind*  mServiceFind;
+
+    QSet<QString> mUuidSet;
 };
 
 #endif

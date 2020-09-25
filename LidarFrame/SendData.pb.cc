@@ -807,7 +807,7 @@ const char descriptor_table_protodef_SendData_2eproto[] PROTOBUF_SECTION_VARIABL
   "g\022\r\n\005start\030\001 \001(\t\022\013\n\003end\030\002 \001(\t\"\310\006\n\010SendDa"
   "ta\022\020\n\010seriaNum\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\022\016\n\006ac"
   "tion\030\003 \001(\t\022\017\n\007success\030\004 \001(\t\022\017\n\007message\030\005"
-  " \001(\t\022\016\n\006snCode\030\006 \001(\t\022\016\n\006userId\030\007 \001(\t\0227\n\005"
+  " \001(\014\022\016\n\006snCode\030\006 \001(\t\022\016\n\006userId\030\007 \001(\t\0227\n\005"
   "ready\030< \001(\0132&.com.caspe.devicemanagement"
   ".util.ReadyH\000\022\?\n\tdetailLog\030= \001(\0132*.com.c"
   "aspe.devicemanagement.util.DetailLogH\000\022;"
@@ -8391,12 +8391,11 @@ const char* SendData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string message = 5;
+      // bytes message = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
           auto str = _internal_mutable_message();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "com.caspe.devicemanagement.util.SendData.message"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -8563,13 +8562,9 @@ failure:
         4, this->_internal_success(), target);
   }
 
-  // string message = 5;
+  // bytes message = 5;
   if (this->message().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_message().data(), static_cast<int>(this->_internal_message().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "com.caspe.devicemanagement.util.SendData.message");
-    target = stream->WriteStringMaybeAliased(
+    target = stream->WriteBytesMaybeAliased(
         5, this->_internal_message(), target);
   }
 
@@ -8725,10 +8720,10 @@ size_t SendData::ByteSizeLong() const {
         this->_internal_success());
   }
 
-  // string message = 5;
+  // bytes message = 5;
   if (this->message().size() > 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
         this->_internal_message());
   }
 

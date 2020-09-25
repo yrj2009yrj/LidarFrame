@@ -18,13 +18,19 @@ inline QTextStream &operator<<(QTextStream& stream, const QJsonArray& json_array
     return stream;
 }
 
-#define ZKGDASSERT(...)   do{qDebug()<<__VA_ARGS__;}while(0)
-#define ZKGDERROR(...)    do{qDebug()<<__VA_ARGS__;}while(0)
-#define ZKGDWARN(...)     do{qDebug()<<__VA_ARGS__;}while(0)
-#define ZKGDINFO(...)     do{qDebug()<<__VA_ARGS__;}while(0)
-#define ZKGDDEBUG(...)    do{qDebug()<<__VA_ARGS__;}while(0)
-#define ZKGDVERBOSE(...)  do{qDebug()<<__VA_ARGS__;}while(0)
-#define ZKGDRAW(...)      do{qDebug()<<__VA_ARGS__;}while(0)
+inline QTextStream& operator<<(QTextStream& stream, const std::string& str)
+{
+    stream << QString::fromStdString(str);
+    return stream;
+}
+
+#define ZKGDASSERT(...)   do{QString __str;QTextStream __stream(&__str);__stream<<__VA_ARGS__;qDebug()<<__str;}while(0)
+#define ZKGDERROR(...)    do{QString __str;QTextStream __stream(&__str);__stream<<__VA_ARGS__;qDebug()<<__str;}while(0)
+#define ZKGDWARN(...)     do{QString __str;QTextStream __stream(&__str);__stream<<__VA_ARGS__;qDebug()<<__str;}while(0)
+#define ZKGDINFO(...)     do{QString __str;QTextStream __stream(&__str);__stream<<__VA_ARGS__;qDebug()<<__str;}while(0)
+#define ZKGDDEBUG(...)    do{QString __str;QTextStream __stream(&__str);__stream<<__VA_ARGS__;qDebug()<<__str;}while(0)
+#define ZKGDVERBOSE(...)  do{QString __str;QTextStream __stream(&__str);__stream<<__VA_ARGS__;qDebug()<<__str;}while(0)
+#define ZKGDRAW(...)      do{QString __str;QTextStream __stream(&__str);__stream<<__VA_ARGS__;qDebug()<<__str;}while(0)
 
 #define ZKGDQDEBUG(...)   do{qDebug()<<__VA_ARGS__;}while(0)
 

@@ -12,9 +12,9 @@ public:
     virtual ~PartBase();
 
 protected:
-    virtual void openPart() = 0;
-    virtual void initPart() = 0;
-    virtual void closePart() = 0;
+    virtual void open() = 0;
+    virtual void init() = 0;
+    virtual void close() = 0;
 
 protected:
     QString mName;
