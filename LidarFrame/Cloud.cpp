@@ -1,10 +1,12 @@
 #include "Cloud.h"
 
+#include <QtCore/QSharedPointer>
 #include <QtCore/QTimerEvent>
 #include <QtCore/QUuid>
 #include <QtWebSockets/QWebSocket>
 
 #include "DeviceState.h"
+#include "ReplyTrack.h"
 #include "ServiceFind.h"
 
 #include "ZkgdLog.h"
@@ -22,6 +24,8 @@ Cloud::Cloud(QObject* parent)
 
     mServiceFind = new ServiceFind(this);
     connect(mServiceFind, &ServiceFind::serviceAddressChanged, this, &Cloud::serviceAddressChanged);
+
+    mReplyTrack = new ReplyTrack(this);
 }
 
 Cloud::~Cloud()
@@ -81,13 +85,9 @@ void Cloud::handleBinaryMessage(const QByteArray& message)
     if (received_data.action() == "connection_check") {
         responseConnectCheck(received_data);
     }
-    else if (mUuidSet.find(uuid) != mUuidSet.end() && received_data.type() == "reply") {
-        mUuidSet.remove(uuid);
+    else if (received_data.type() == "reply") {
+        mReplyTrack->removeTrack(uuid);
         ZKGDDEBUG(uuid << " get a reply: " << received_data.message());
-    }
-
-    if ( mUuidSet.count() > 0) {
-        ZKGDDEBUG("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX: " << mUuidSet.count());
     }
 }
 
@@ -100,38 +100,43 @@ void Cloud::responseConnectCheck(const SendData& received_data)
     data.set_success("true");
     data.set_message(QString::fromLocal8Bit("³É¹¦").toUtf8().data());
 
-    serializeSend(data);
+    if (serializeSend(data)) {
+        ZKGDDEBUG("Response Connect Check");
+    }
 }
 
-int Cloud::serializeSend(const SendData& data)
+bool Cloud::serializeSend(const SendData& data)
 {
     std::string s; 
     int count = 0;
     if (data.SerializeToString(&s)) {
         count = mWebSocketClient->sendBinaryMessage(QByteArray(s.c_str(), s.length()));
-        ZKGDDEBUG("Response Connect Check: " << count);
     }
-    return count;
+
+    if (s.length() == count) {
+        return true;
+    }
+    return false;
 }
 
 void Cloud::reportOnline()
 {
-    SendData data;
+    QSharedPointer<SendData> data = QSharedPointer<SendData>(new SendData());
     Ready ready;
     DeviceState* device_state = DeviceState::getInstance();
 
     QString uuid = QUuid::createUuid().toString().replace(QRegExp("[{}-]"), "");
     QString collect_mode_str = device_state->getCollectModeStr();
 
-    data.set_serianum(uuid.toLatin1().data());
-    data.set_type("action");
-    data.set_action("ready");
+    data->set_serianum(uuid.toLatin1().data());
+    data->set_type("action");
+    data->set_action("ready");
     ready.set_currentmode(collect_mode_str.toLatin1().data());
     ready.set_lon(device_state->getLongitude());
     ready.set_lat(device_state->getLatitude());
-    *(data.mutable_ready()) = ready;
+    *(data->mutable_ready()) = ready;
 
-    if (serializeSend(data)) {
-        mUuidSet.insert(uuid);
+    if (serializeSend(*data)) {
+        mReplyTrack->addTrack(data);
     }
 }

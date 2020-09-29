@@ -9,6 +9,7 @@ using namespace com::caspe::devicemanagement::util;
 
 class QWebSocket;
 
+class ReplyTrack;
 class ServiceFind;
 
 class Cloud :public QObject
@@ -38,7 +39,7 @@ private:
 
     void serviceAddressChanged();
 
-    int serializeSend(const SendData& data);
+    bool serializeSend(const SendData& data);
 
 private:
     QWebSocket* mWebSocketClient;
@@ -49,9 +50,11 @@ private:
 
     int mReconnectionTimer;
 
-    ServiceFind*  mServiceFind;
+    ServiceFind* mServiceFind;
 
+    ReplyTrack* mReplyTrack;    //监测发送给服务端后，是否有对应的回复
     QSet<QString> mUuidSet;
+
 };
 
 #endif

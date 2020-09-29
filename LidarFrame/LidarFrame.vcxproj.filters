@@ -50,6 +50,9 @@
     <ClCompile Include="ServiceFind.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ReplyTrack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="PartBase.h">
@@ -77,6 +80,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="ServiceFind.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ReplyTrack.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

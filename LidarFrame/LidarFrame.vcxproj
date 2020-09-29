@@ -52,7 +52,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)protobuf-3.12.3\include;$(ProjectDir)easylogger\inc;$(ProjectDir)easylogger\plugins\file;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)protobuf-3.12.3\include;$(ProjectDir)easylogger\inc;$(ProjectDir)easylogger\plugins\file;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(ProjectDir)protobuf-3.12.3\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -79,7 +79,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)protobuf-3.12.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)protobuf-3.12.3\include;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(ProjectDir)protobuf-3.12.3\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -135,6 +135,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainProcess.cpp" />
     <ClCompile Include="PartBase.cpp" />
+    <ClCompile Include="ReplyTrack.cpp" />
     <ClCompile Include="ServiceFind.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ServiceFind.h" />
+    <QtMoc Include="ReplyTrack.h" />
     <ClInclude Include="ZkgdLog.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
