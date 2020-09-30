@@ -2,7 +2,6 @@
 #define __CLOUD_H__
 
 #include <QObject>
-#include <QSet>
 
 #include "SendData.pb.h"
 using namespace com::caspe::devicemanagement::util;
@@ -35,6 +34,8 @@ private:
 
     void responseConnectCheck(const SendData&);
 
+    void responseCollectCommand(const SendData& received_data);
+
     void reportOnline();
 
     void serviceAddressChanged();
@@ -53,8 +54,6 @@ private:
     ServiceFind* mServiceFind;
 
     ReplyTrack* mReplyTrack;    //监测发送给服务端后，是否有对应的回复
-    QSet<QString> mUuidSet;
-
 };
 
 #endif

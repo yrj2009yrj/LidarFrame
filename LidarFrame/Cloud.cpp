@@ -85,6 +85,11 @@ void Cloud::handleBinaryMessage(const QByteArray& message)
     if (received_data.action() == "connection_check") {
         responseConnectCheck(received_data);
     }
+    else if (received_data.action() == "collect") {
+        responseCollectCommand(received_data);
+
+        //TODO: 执行相对应的动作
+    }
     else if (received_data.type() == "reply") {
         mReplyTrack->removeTrack(uuid);
         ZKGDDEBUG(uuid << " get a reply: " << received_data.message());
@@ -113,10 +118,10 @@ bool Cloud::serializeSend(const SendData& data)
         count = mWebSocketClient->sendBinaryMessage(QByteArray(s.c_str(), s.length()));
     }
 
-    if (s.length() == count) {
-        return true;
+    if (s.length() != count) {
+        return false;
     }
-    return false;
+    return true;
 }
 
 void Cloud::reportOnline()
@@ -138,5 +143,21 @@ void Cloud::reportOnline()
 
     if (serializeSend(*data)) {
         mReplyTrack->addTrack(data);
+    }
+}
+
+void Cloud::responseCollectCommand(const SendData& received_data)
+{
+    SendData data;
+    data.set_serianum(received_data.serianum());
+    data.set_type("reply");
+    data.set_action(received_data.action());
+    data.set_success("true");
+    data.set_message(QString::fromLocal8Bit("成功").toUtf8().data());
+
+    //TODO: 增加 data 字段
+
+    if (serializeSend(data)) {
+        ZKGDDEBUG("Response Collect Command");
     }
 }
